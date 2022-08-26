@@ -12,8 +12,6 @@ function clean_data($data) {
             return $data;
 }
 
-//echo clean_data($_POST['no_bed']).
-
 $town = clean_data($_POST['town']);
 $number_bed = clean_data($_POST['no_bed']);
 $price  = clean_data($_POST['price']);
@@ -30,10 +28,7 @@ $price  = clean_data($_POST['price']);
 			$param_town = $town;
 			$param_no_bed = $number_bed;
 			$param_price = $price;
-		
-		//echo $param_town.'-'.$param_no_bed.'-'.$param_price;
-		
-		//die();
+			
         
         // Attempt to execute the prepared statement
         if(mysqli_stmt_execute($stmt)){
@@ -44,9 +39,6 @@ $price  = clean_data($_POST['price']);
                 contains only one row, we don't need to use while loop */
                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 				
-				//return $row;
-				
-				//print_r($row);
 				
             } else{
 				echo "No record found ";
