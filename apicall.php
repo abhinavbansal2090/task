@@ -1,24 +1,27 @@
 <?php
-function curlCall($api_key,$page_num,$page_size)
-{
+// function curlCall($api_key,$page_num,$page_size)
+// {
  require_once "config/config.php";
  
- $ch = curl_init();
+ 
+ 
+ for($i=1; $i<=126; $i++){
+	 
+	 $ch = curl_init();
+	 
+	 $api_key = $_GET['api_key'];
   
-    $url = "https://trial.craig.mtcserver15.com/api/properties";
-    $dataArray = ['api_key' => $api_key,
-	'page[number]'=>$page_num,
-	'page[size]'=>$page_size
-	];
+    $url = "https://trial.craig.mtcserver15.com/api/properties?api_key=$api_key&page[number]=$i&page[size]=100";
+   
   
-    $data = http_build_query($dataArray);
+    // $data = http_build_query($dataArray);
   
-    $getUrl = $url."?".$data;
+    // $getUrl = $url."?".$data;
   
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($ch, CURLOPT_URL, $getUrl);
+    curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_TIMEOUT, 80);
        
     $response = curl_exec($ch);
@@ -75,8 +78,15 @@ function curlCall($api_key,$page_num,$page_size)
 				
 			mysqli_close($link);
 
-}
+	 
+		}
+	 
+	 
+ }
+ 
+ 
 
-	}
+
+	//}
 
 ?>
