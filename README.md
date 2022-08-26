@@ -18,3 +18,13 @@ Step 2:
  Step 3:
   Show the data on frontend
   Filter/search the data according to filter data
+
+
+Files Used
+  callapi file is used for calling the api and storing data in database.
+  config file is used for connecting with database
+  constant file is used for storing global variables
+  frontend file is having front end code
+  Search file having search code.
+  task_table is sql schema file.
+  
