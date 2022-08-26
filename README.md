@@ -1,4 +1,4 @@
-# PHP SDK for Task
+# PHP Task
 
 Task is a to call 3rd party API and save the data in database.
 Show all data saved in database and filter according to given fields in task.
