@@ -1,12 +1,12 @@
 <?php
-function curlCall($page_num,$page_size)
+function curlCall($api_key,$page_num,$page_size)
 {
  require_once "config.php";
  
  $ch = curl_init();
   
     $url = "https://trial.craig.mtcserver15.com/api/properties";
-    $dataArray = ['api_key' => "2S7rhsaq9X1cnfkMCPHX64YsWYyfe1he",
+    $dataArray = ['api_key' => $api_key,
 	'page[number]'=>$page_num,
 	'page[size]'=>$page_size
 	];
@@ -30,12 +30,8 @@ function curlCall($page_num,$page_size)
     curl_close($ch);
 	
 	$data = json_decode($response,TRUE);
-	
-	//forEach($data["data"] as $key => $element){
 		
         // Prepare an insert statement
-		
-		//if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         $sql = "INSERT INTO task_table (County,Country,Town,Description,Displayable_address,Image,No_bed,No_bath,Price) VALUES (?,?,?,?,?,?,?,?,?)";
          
@@ -43,27 +39,33 @@ function curlCall($page_num,$page_size)
 			
 			forEach($data["data"] as $key => $element){
 				
-				//echo $element['county']."<br/>";
+				//santize the data before insert				
+				$county = mysqli_real_escape_string($link,$element['county']);
+				$country = mysqli_real_escape_string($link,$element['country']);
+				$town = mysqli_real_escape_string($link,$element['town']);
+				$description = mysqli_real_escape_string($link,$element['description']);
+				$address = mysqli_real_escape_string($link,$element['address']);
+				$image_full = mysqli_real_escape_string($link,$element['image_full']);
+				$num_bedrooms = mysqli_real_escape_string($link,$element['num_bedrooms']);
+				$num_bathrooms = mysqli_real_escape_string($link,$element['num_bathrooms']);
+				$price = mysqli_real_escape_string($link,$element['price']);
+				
 				
 				mysqli_stmt_bind_param($stmt, "sssssssss", $param_county,$param_country,$param_town,$param_description,$param_displayable_address,$param_image,$param_no_bed,$param_no_bath,$param_price);
 				
 				// Set parameters
-				$param_county = $element['county'];
-				$param_country = $element['country'];
-				$param_town = $element['town'];
-				$param_description= $element['description']; ;
-				$param_displayable_address=$element['address'];
-				$param_image = $element['image_full'];
-				$param_no_bed=$element['num_bedrooms'];
-				$param_no_bath=$element['num_bathrooms'];
-				$param_price=$element['price'];
+				$param_county = $county;
+				$param_country = $country;
+				$param_town = $town;
+				$param_description= $description;
+				$param_displayable_address=$address;
+				$param_image = $image_full;
+				$param_no_bed=$num_bedrooms;
+				$param_no_bath=$num_bathrooms;
+				$param_price=$price;
 				
 				mysqli_stmt_execute($stmt);
 				
-				// if(mysqli_stmt_execute($stmt)){
-					
-					// echo "Records created successfully";
-				// }
 			}
 				
 				echo "Records created successfully";
@@ -72,10 +74,6 @@ function curlCall($page_num,$page_size)
 				
 				
 			mysqli_close($link);
-	
-	
-	
-//}
 
 }
 
