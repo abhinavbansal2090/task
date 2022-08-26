@@ -7,8 +7,14 @@ Prerequisite
 You need PHP version >= 5.5.0 or later installed to use the Contentstack PHP SDK.
 MySQL 5.0
 
-Working of task
-Call the 3rd party API
-Save the data into database using prepared statement in MySQL 5.0
-Show data at frontend and filter data according to filter fields.
 
+Flow of task
+Step 1:
+  Call the 3rd part API using PHP Cli
+ 
+Step 2:
+ Store the API data into mySQL 5.0
+ 
+ Step 3:
+  Show the data on frontend
+  Filter/search the data according to filter data
